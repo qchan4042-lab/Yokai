@@ -1,0 +1,43 @@
+local rotation = 0
+local speed = 2.5 -- Rotation speed
+local armLength = 14
+local gap = 7
+local thickness = 3
+
+function love.update(dt)
+    rotation = rotation + speed * dt
+end
+
+function love.draw()
+    local cx = love.graphics.getWidth() / 2
+    local cy = love.graphics.getHeight() / 2
+
+    love.graphics.push()
+    love.graphics.translate(cx, cy)
+    love.graphics.rotate(rotation)
+
+    -- Red glow
+    love.graphics.setColor(1, 0, 0, 0.25)
+    love.graphics.setLineWidth(7)
+
+    -- Four rotating arms
+    love.graphics.line(-gap-armLength, 0, -gap, 0)
+    love.graphics.line(gap, 0, gap+armLength, 0)
+    love.graphics.line(0, -gap-armLength, 0, -gap)
+    love.graphics.line(0, gap, 0, gap+armLength)
+
+    -- Main crosshair
+    love.graphics.setColor(1, 0, 0, 1)
+    love.graphics.setLineWidth(thickness)
+
+    love.graphics.line(-gap-armLength, 0, -gap, 0)
+    love.graphics.line(gap, 0, gap+armLength, 0)
+    love.graphics.line(0, -gap-armLength, 0, -gap)
+    love.graphics.line(0, gap, 0, gap+armLength)
+
+    -- Small center dot
+    love.graphics.circle("fill", 0, 0, 2)
+
+    love.graphics.pop()
+    love.graphics.setColor(1, 1, 1, 1)
+end
